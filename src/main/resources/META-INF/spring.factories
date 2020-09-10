@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.labbol.core.configuration.LabbolCacheConfiguration,\
+com.labbol.core.configuration.LabbolCoreConfiguration,\
+com.labbol.core.configuration.LabbolPlatformConfiguration
