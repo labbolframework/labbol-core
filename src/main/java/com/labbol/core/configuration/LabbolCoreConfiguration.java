@@ -21,6 +21,7 @@ import org.yelong.core.jdbc.sql.factory.SqlFragmentFactory;
 import org.yelong.core.model.ModelConfiguration;
 import org.yelong.core.model.manage.ModelManager;
 import org.yelong.core.model.property.ModelProperty;
+import org.yelong.core.model.service.ModelServiceInterceptor;
 import org.yelong.core.model.sql.SqlModelResolver;
 import org.yelong.support.orm.mybaits.mapper.MyBatisBaseDataBaseOperation;
 
@@ -45,7 +46,7 @@ public class LabbolCoreConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean(SqlModelResolver.class)
-	public LabbolSqlModelResolver dreamFirstSqlModelResolver(ModelManager modelManager,
+	public LabbolSqlModelResolver labbolSqlModelResolver(ModelManager modelManager,
 			ConditionResolver conditionResolver, SqlFragmentFactory sqlFragmentFactory, ModelProperty modelProperty) {
 		return new LabbolSqlModelResolver(modelManager, conditionResolver, sqlFragmentFactory, modelProperty);
 	}
@@ -80,7 +81,7 @@ public class LabbolCoreConfiguration {
 	 * @return 保存拦截器
 	 */
 	@Bean
-	public Interceptor saveModelServiceInterceptor() {
+	public ModelServiceInterceptor saveModelServiceInterceptor() {
 		return new SaveModelServiceInterceptor();
 	}
 
@@ -90,7 +91,7 @@ public class LabbolCoreConfiguration {
 	 * @return 修改拦截器
 	 */
 	@Bean
-	public Interceptor modifyModelServiceInterceptor() {
+	public ModelServiceInterceptor modifyModelServiceInterceptor() {
 		return new ModifyModelServiceInterceptor();
 	}
 
@@ -99,8 +100,8 @@ public class LabbolCoreConfiguration {
 	@ConditionalOnBean(Interceptor.class)
 	@ConditionalOnSingleCandidate(LabbolModelService.class)
 	public LabbolModelService dreamFirstModelServiceProxy(LabbolModelService labbolModelService,
-			ObjectProvider<List<Interceptor>> interceptorProvider) {
-		List<Interceptor> interceptors = interceptorProvider.getIfAvailable();
+			ObjectProvider<List<ModelServiceInterceptor>> interceptorProvider) {
+		List<ModelServiceInterceptor> interceptors = interceptorProvider.getIfAvailable();
 		InterceptorChain interceptorChain = new InterceptorChain();
 		interceptorChain.addInterceptor(interceptors);
 		Class<?> targetClass = AopUtils.getTargetClass(labbolModelService);
