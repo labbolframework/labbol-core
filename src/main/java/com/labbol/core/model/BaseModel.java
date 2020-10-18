@@ -4,7 +4,6 @@
 package com.labbol.core.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +12,11 @@ import org.yelong.core.annotation.Nullable;
 import org.yelong.core.jdbc.sql.condition.ConditionConnectWay;
 import org.yelong.core.jdbc.sql.condition.support.Condition;
 import org.yelong.core.model.Modelable;
-import org.yelong.core.model.annotation.Column;
-import org.yelong.core.model.annotation.PrimaryKey;
 import org.yelong.core.model.sql.SqlModel;
 
 import com.labbol.core.queryinfo.filter.QueryFilterInfo;
+
+import dream.first.base.model.DreamFirstBaseModel;
 
 /**
  * 基础模型。包含基础的字段，并提供常用的方法
@@ -27,31 +26,9 @@ import com.labbol.core.queryinfo.filter.QueryFilterInfo;
  * @author PengFei
  * @since 2.0
  */
-public abstract class BaseModel<M extends Modelable> extends BaseSqlModel<M> implements BaseModelable {
+public abstract class BaseModel<M extends Modelable> extends DreamFirstBaseModel<M> implements BaseModelable {
 
 	private static final long serialVersionUID = -4023707437316252376L;
-
-	/**
-	 * 主键
-	 */
-	@PrimaryKey
-	@Column(columnName = "主键")
-	private String id;
-
-	@Column(columnName = "创建人")
-	private String creator;
-
-	@Column(columnName = "创建时间")
-	private Date createTime;
-
-	@Column(columnName = "修改人")
-	private String updator;
-
-	@Column(columnName = "修改时间")
-	private Date updateTime;
-
-	@Column(columnName = "状态")
-	private String state;
 
 	/**
 	 * @see #addConditionOperator(String, String)
@@ -174,56 +151,6 @@ public abstract class BaseModel<M extends Modelable> extends BaseSqlModel<M> imp
 		queryFilterInfo.setGroupName(condition.getGroupName());
 		queryFilterInfo.setOperator(condition.getOperator());
 		return queryFilterInfo;
-	}
-
-	// ===========================Get/Set===========================
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCreator() {
-		return creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getUpdator() {
-		return updator;
-	}
-
-	public void setUpdator(String updator) {
-		this.updator = updator;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
 	}
 
 }

@@ -31,8 +31,9 @@ import com.labbol.core.queryinfo.filter.QueryFilterInfoResolver;
 import com.labbol.core.queryinfo.filter.impl.oracle.OracleQueryFilterInfoResolver;
 import com.labbol.core.service.LabbolModelService;
 import com.labbol.core.service.LabbolModelServiceImpl;
-import com.labbol.core.service.ModifyModelServiceInterceptor;
-import com.labbol.core.service.SaveModelServiceInterceptor;
+
+import dream.first.base.model.interceptor.ModifyModelInterceptor;
+import dream.first.base.model.interceptor.SaveModelInterceptor;
 
 /**
  * 基础配置
@@ -81,8 +82,9 @@ public class LabbolCoreConfiguration {
 	 * @return 保存拦截器
 	 */
 	@Bean
-	public ModelServiceInterceptor saveModelServiceInterceptor() {
-		return new SaveModelServiceInterceptor();
+	@ConditionalOnMissingBean
+	public SaveModelInterceptor saveModelInterceptor() {
+		return new SaveModelInterceptor();
 	}
 
 	/**
@@ -91,8 +93,9 @@ public class LabbolCoreConfiguration {
 	 * @return 修改拦截器
 	 */
 	@Bean
-	public ModelServiceInterceptor modifyModelServiceInterceptor() {
-		return new ModifyModelServiceInterceptor();
+	@ConditionalOnMissingBean
+	public ModifyModelInterceptor modifyModelInterceptor() {
+		return new ModifyModelInterceptor();
 	}
 
 	@Primary

@@ -8,6 +8,8 @@ import org.yelong.core.annotation.Nullable;
 import com.labbol.core.platform.org.model.Org;
 import com.labbol.core.platform.user.model.User;
 
+import dream.first.base.userauth.CurrentAuthUserInfoHolder;
+
 /**
  * 当前登录（请求）用户{@link CurrentLoginUserInfo}的持有者
  * 
@@ -19,15 +21,13 @@ public abstract class CurrentLoginUserInfoHolder {
 	private CurrentLoginUserInfoHolder() {
 	}
 
-	private static final ThreadLocal<CurrentLoginUserInfo> CURRENT_LOGIN_USER_INFO = new ThreadLocal<>();
-
 	/**
 	 * 设置当前登录（请求）用户的信息
 	 * 
 	 * @param currentLoginUserInfo 当前登录（请求）用户的信息
 	 */
 	public static void setCurrentLoginUserInfo(CurrentLoginUserInfo currentLoginUserInfo) {
-		CURRENT_LOGIN_USER_INFO.set(currentLoginUserInfo);
+		CurrentAuthUserInfoHolder.setCurrentLoginUserInfo(currentLoginUserInfo);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public abstract class CurrentLoginUserInfoHolder {
 	 */
 	@Nullable
 	public static CurrentLoginUserInfo currentLoginUserInfo() {
-		return CURRENT_LOGIN_USER_INFO.get();
+		return (CurrentLoginUserInfo) CurrentAuthUserInfoHolder.getCurrentLoginUserInfo();
 	}
 
 	/**
