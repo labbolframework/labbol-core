@@ -23,6 +23,8 @@ import org.yelong.core.model.manage.ModelManager;
 import org.yelong.core.model.property.ModelProperty;
 import org.yelong.core.model.service.ModelServiceInterceptor;
 import org.yelong.core.model.sql.SqlModelResolver;
+import org.yelong.http.client.DefaultHttpClient;
+import org.yelong.http.client.HttpClient;
 import org.yelong.support.orm.mybaits.mapper.MyBatisBaseDataBaseOperation;
 
 import com.labbol.core.handler.interceptor.DefaultInterceptorConfiguration;
@@ -47,8 +49,8 @@ public class LabbolCoreConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean(SqlModelResolver.class)
-	public LabbolSqlModelResolver labbolSqlModelResolver(ModelManager modelManager,
-			ConditionResolver conditionResolver, SqlFragmentFactory sqlFragmentFactory, ModelProperty modelProperty) {
+	public LabbolSqlModelResolver labbolSqlModelResolver(ModelManager modelManager, ConditionResolver conditionResolver,
+			SqlFragmentFactory sqlFragmentFactory, ModelProperty modelProperty) {
 		return new LabbolSqlModelResolver(modelManager, conditionResolver, sqlFragmentFactory, modelProperty);
 	}
 
@@ -135,6 +137,14 @@ public class LabbolCoreConfiguration {
 	public HandlerInterceptor handlerInterceptor() {
 		return new HandlerInterceptor() {
 		};
+	}
+
+	// ===========================http===========================
+
+	@Bean
+	@ConditionalOnMissingBean(HttpClient.class)
+	public HttpClient httpClient() {
+		return new DefaultHttpClient();
 	}
 
 }
