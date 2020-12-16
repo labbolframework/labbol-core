@@ -42,6 +42,9 @@ public class Module extends BaseModel<Module> implements Comparable<Module>, Ord
 
 	private String moduleIcon;
 
+	@Column(columnName = "打开模块的方式")
+	private String moduleOpenType;
+
 	public String getModuleNo() {
 		return moduleNo;
 	}
@@ -136,6 +139,14 @@ public class Module extends BaseModel<Module> implements Comparable<Module>, Ord
 
 	public void setModuleSourceUrl(String moduleSourceUrl) {
 		this.moduleSourceUrl = moduleSourceUrl;
+	}
+
+	public String getModuleOpenType() {
+		return moduleOpenType;
+	}
+
+	public void setModuleOpenType(String moduleOpenType) {
+		this.moduleOpenType = moduleOpenType;
 	}
 
 	@Override

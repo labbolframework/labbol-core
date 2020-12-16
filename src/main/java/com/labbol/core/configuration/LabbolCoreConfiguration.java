@@ -9,6 +9,7 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -27,6 +28,7 @@ import org.yelong.http.client.DefaultHttpClient;
 import org.yelong.http.client.HttpClient;
 import org.yelong.support.orm.mybaits.mapper.MyBatisBaseDataBaseOperation;
 
+import com.labbol.core.Labbol;
 import com.labbol.core.handler.interceptor.DefaultInterceptorConfiguration;
 import com.labbol.core.model.sql.LabbolSqlModelResolver;
 import com.labbol.core.queryinfo.filter.QueryFilterInfoResolver;
@@ -104,6 +106,7 @@ public class LabbolCoreConfiguration {
 	@Bean("modelService")
 	@ConditionalOnBean(Interceptor.class)
 	@ConditionalOnSingleCandidate(LabbolModelService.class)
+	@ConditionalOnProperty(prefix = Labbol.LABBOL_PROPERTIES_PREFIX, name = "modelServiceProxy", havingValue = "true", matchIfMissing = true)
 	public LabbolModelService dreamFirstModelServiceProxy(LabbolModelService labbolModelService,
 			ObjectProvider<List<ModelServiceInterceptor>> interceptorProvider) {
 		List<ModelServiceInterceptor> interceptors = interceptorProvider.getIfAvailable();

@@ -6,6 +6,8 @@ package com.labbol.core.queryinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import com.labbol.core.queryinfo.filter.QueryFilterInfo;
 
 /**
@@ -49,11 +51,19 @@ public class QueryInfo {
 		return sorters;
 	}
 
+	// ==================================================条件==================================================
+
+	/**
+	 * 添加一个排序条件
+	 */
+	public void addFilter(QueryFilterInfo queryFilterInfo) {
+		this.filters.add(queryFilterInfo);
+	}
+
 	/**
 	 * 是否存在条件
 	 * 
 	 * @date 2019年11月12日下午6:09:05
-	 * @version 1.2
 	 * @return <tt>true</tt> 存在条件
 	 */
 	public boolean isFilter() {
@@ -61,11 +71,22 @@ public class QueryInfo {
 	}
 
 	/**
+	 * 条件是否为空
+	 * 
+	 * @author PengFei
+	 * @date 2020年12月7日下午4:16:35
+	 * @return <code>true</code> 条件为空
+	 */
+	public boolean isNotFilter() {
+		return CollectionUtils.isEmpty(filters);
+	}
+
+	// ==================================================排序==================================================
+
+	/**
 	 * 设置排序信息。这会覆盖原有的排序信息
 	 * 
 	 * @date 2019年11月12日下午5:32:38
-	 * @version 1.2
-	 * @param sorters
 	 */
 	public void setSorters(List<QuerySortInfo> sorters) {
 		this.sorters = sorters;
@@ -74,9 +95,7 @@ public class QueryInfo {
 	/**
 	 * 是否存在排序
 	 * 
-	 * @author 彭飞
 	 * @date 2019年10月23日下午12:02:52
-	 * @version 1.0
 	 * @return <tt>true</tt>存在排序
 	 */
 	public boolean isSort() {
@@ -84,13 +103,20 @@ public class QueryInfo {
 	}
 
 	/**
+	 * 排序是否为空
+	 * 
+	 * @author PengFei
+	 * @date 2020年12月7日下午4:14:47
+	 * @return <code>true</code> 排序为空
+	 */
+	public boolean isNotSort() {
+		return CollectionUtils.isEmpty(sorters);
+	}
+
+	/**
 	 * 添加一个排序
 	 * 
-	 * @author 彭飞
 	 * @date 2019年10月23日下午12:04:20
-	 * @version 1.0
-	 * @param sortField
-	 * @param direction
 	 */
 	public void addSort(QuerySortInfo querySortInfo) {
 		this.sorters.add(querySortInfo);
@@ -99,22 +125,10 @@ public class QueryInfo {
 	/**
 	 * 添加一个排序
 	 * 
-	 * @author 彭飞
 	 * @date 2019年10月23日下午12:04:20
-	 * @version 1.0
-	 * @param sortField
-	 * @param direction
 	 */
 	public void addSort(String sortField, String direction) {
 		this.sorters.add(new QuerySortInfo(sortField, direction));
 	}
 
-	/**
-	 * 添加一个排序条件
-	 * 
-	 * @param queryFilterInfo
-	 */
-	public void addFilter(QueryFilterInfo queryFilterInfo) {
-		this.filters.add(queryFilterInfo);
-	}
 }
