@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandi
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.yelong.core.interceptor.Interceptor;
 import org.yelong.core.interceptor.InterceptorChain;
 import org.yelong.core.jdbc.dialect.Dialect;
 import org.yelong.core.jdbc.sql.condition.support.ConditionResolver;
@@ -104,7 +103,7 @@ public class LabbolCoreConfiguration {
 
 	@Primary
 	@Bean("modelService")
-	@ConditionalOnBean(Interceptor.class)
+	@ConditionalOnBean(ModelServiceInterceptor.class)
 	@ConditionalOnSingleCandidate(LabbolModelService.class)
 	@ConditionalOnProperty(prefix = Labbol.LABBOL_PROPERTIES_PREFIX, name = "modelServiceProxy", havingValue = "true", matchIfMissing = true)
 	public LabbolModelService labbolModelServiceProxy(LabbolModelService labbolModelService,
