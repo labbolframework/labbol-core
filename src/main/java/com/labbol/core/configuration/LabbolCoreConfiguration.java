@@ -107,7 +107,7 @@ public class LabbolCoreConfiguration {
 	@ConditionalOnBean(Interceptor.class)
 	@ConditionalOnSingleCandidate(LabbolModelService.class)
 	@ConditionalOnProperty(prefix = Labbol.LABBOL_PROPERTIES_PREFIX, name = "modelServiceProxy", havingValue = "true", matchIfMissing = true)
-	public LabbolModelService dreamFirstModelServiceProxy(LabbolModelService labbolModelService,
+	public LabbolModelService labbolModelServiceProxy(LabbolModelService labbolModelService,
 			ObjectProvider<List<ModelServiceInterceptor>> interceptorProvider) {
 		List<ModelServiceInterceptor> interceptors = interceptorProvider.getIfAvailable();
 		InterceptorChain interceptorChain = new InterceptorChain();
